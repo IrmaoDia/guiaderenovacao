@@ -4,7 +4,7 @@ window.OFFER_CONFIG = Object.freeze({
   price: 34.90,
   currency: 'BRL',
   comparisonPrice: 97.00,
-  installments: null, // Quando confirmado: { count: 2, amount: 24.95 }.
+  installments: { count: 5, amount: 8.09 },
   checkoutUrl: 'https://pay.wiapy.com/gwJVqHrFF-tu',
   guaranteeDays: 7,
   deliveryConfirmed: false,

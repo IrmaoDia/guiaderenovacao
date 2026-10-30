@@ -13,9 +13,14 @@ function formatPrice(value) {
   }).format(value);
 }
 const hasPrice = Number.isFinite(offer.price) && offer.price > 0;
+const installments = offer.installments;
+const hasInstallments = hasPrice && Number.isInteger(installments?.count) && installments.count > 1 &&
+  Number.isFinite(installments.amount) && installments.amount > 0;
 if (hasPrice) {
   const price = document.querySelector('[data-offer-price]');
-  price.textContent = formatPrice(offer.price);
+  price.textContent = hasInstallments
+    ? `${installments.count}x de ${formatPrice(installments.amount)}`
+    : formatPrice(offer.price);
   price.classList.remove('price-pending');
   if (Number.isFinite(offer.comparisonPrice) && offer.comparisonPrice > offer.price) {
     const comparison = document.querySelector('[data-comparison-price]');
@@ -26,15 +31,9 @@ if (hasPrice) {
     comparison.hidden = false;
   }
 }
-const installments = offer.installments;
-if (hasPrice && Number.isInteger(installments?.count) && installments.count > 0 &&
-    Number.isFinite(installments.amount) && installments.amount > 0) {
-  const payment = document.querySelector('[data-offer-installments]');
-  payment.textContent = installments.count === 1
-    ? `Pagamento único de ${formatPrice(installments.amount)}`
-    : `${installments.count} parcelas de ${formatPrice(installments.amount)}`;
-  payment.hidden = false;
-}
+const cashPrice = document.querySelector('[data-offer-cash-price]');
+cashPrice.textContent = hasInstallments ? `ou ${formatPrice(offer.price)} à vista` : '';
+cashPrice.hidden = !hasInstallments;
 // null preserves the HTML fallback; an empty URL explicitly disables checkout.
 const checkoutUrl = validUrl(offer.checkoutUrl ?? checkoutButton.getAttribute('href'));
 if (checkoutUrl) checkoutButton.href = checkoutUrl;
