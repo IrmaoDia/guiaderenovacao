@@ -117,7 +117,13 @@ figcaption,.preview-note{font-size:12px;line-height:1.6;color:#62566c}
 .offer-intro{max-width:620px;margin:0 auto 40px;color:#463c32;font-size:20px;font-weight:400;line-height:1.35;text-wrap:balance}
 .offer .price:not(.price-pending){margin:0 auto 12px;color:#16a500;font-size:clamp(36px,6.4vw,44px);font-weight:800;line-height:1.2;letter-spacing:normal}
 .offer .payment{font-size:20px;font-weight:400;line-height:1.35;color:#463c32;letter-spacing:normal;margin-top:0}
-.offer .cta{margin-top:32px}
+.offer .cta{margin-top:32px;animation:offer-button-pulse 1.8s ease-in-out infinite}
+.offer .cta:hover,.offer .cta:focus-visible,.offer .cta:active,.offer .cta[aria-disabled=true]{animation:none}
+@keyframes offer-button-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 7px 0 #19913c,0 0 0 0 #1c843c00}
+  50%{transform:scale(1.035);box-shadow:0 7px 0 #19913c,0 0 0 12px #1c843c24}
+}
+@media(prefers-reduced-motion:reduce){.offer .cta{animation:none}}
 .purchase-note{font-size:13px;margin:24px 0 0}
 .cta[aria-disabled=true]{opacity:.55;cursor:default}
 .guarantee{background:#ffdaa0;color:#4b4438;padding-block:36px}
